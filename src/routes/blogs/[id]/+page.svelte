@@ -2,17 +2,16 @@
 <script lang="ts">
     import { marked } from 'marked';
     import Sidebar from '$lib/Sidebar.svelte';
-    let title = "Blog Post Title";
-    let date = "2024-06-10";
-    let content = "This is the content of the blog post. It can include **Markdown** formatting.\n ![Pic](/images/image.png)";
+    let { data } = $props(); 
+    console.log(data);
 </script>
 
-<h1>{title}</h1>
-<p>{date}</p>
+<h1>{data.blog.title}</h1>
+<p>{data.blog.date}</p>
 <div class="post">
 
         <div class="content">
-            {@html marked(content)} 
+            {@html marked(data.blog.content)} 
         </div>
         <div class="sidebar">
             <Sidebar categories={['Tech', 'Life', 'Travel']} />
@@ -52,4 +51,6 @@
     .post div {
         width: 100%;
     }
+
+   
 </style>

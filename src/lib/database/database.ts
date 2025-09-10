@@ -1,20 +1,20 @@
+import MySQLBlogDatabase from "./mysql";
 
-type BlogPost = {
-    id: number;
+export type BlogPost = {
+    id: number | null;
     title: string;
     content: string;
     summary: string;
     date: Date;
 }
 
-interface BlogDatabase {
+export interface BlogDatabase {
     getAllBlogs(): Promise<BlogPost[]>;
     getBlogByid(id: number): Promise<BlogPost | null>;
     addBlogPost(post: BlogPost): Promise<void>;
     // deleteBlogPost(id: number): Promise<void>;
     // updateBlogPost(id: number, updatedPost: Partial<BlogPost>): Promise<void>;
 }
-
 
 class InmemoryBlogDatabase implements BlogDatabase {
     private blogs: BlogPost[] = [
@@ -53,7 +53,7 @@ export function createBlogDatabase(type: 'inmemory' | 'sqlite' | 'mysql'): BlogD
     switch(type) {
         case 'inmemory': return new InmemoryBlogDatabase();
         case 'sqlite': return new SQLiteBlogDatabase();
-        // case 'mysql': return new MySQLBlogDatabase();
+        case 'mysql': return new MySQLBlogDatabase();
         default: throw new Error('Unknown database type');
     }
 }

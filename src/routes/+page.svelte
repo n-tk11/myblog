@@ -14,6 +14,9 @@
         {#each data.blogs as blog}
             <Summary title={blog.title} date={blog.date} summary={blog.summary} id={blog.id} />
         {/each}
+        <form method="POST">
+            <button>Add Blog</button>
+        </form>
     </div>
     <div class="sidebar">
         <Sidebar categories={['Tech', 'Life', 'Travel']} />
