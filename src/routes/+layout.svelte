@@ -1,8 +1,10 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg';
 	import Sidebar from '$lib/Sidebar.svelte';
+	import { enhance } from '$app/forms';
 
-	let { children } = $props();
+	let { children, data } = $props();
+	
 </script>
 
 <svelte:head>
@@ -15,7 +17,14 @@
 	<nav>
 		<a href="/">Home</a>
 		<a href="/about">About</a>
-		<a href="/admin">Admin</a>
+		{#if data.user?.name === "admin"}
+			<a href="/admin">Admin</a>
+			<form method="POST" action="/logout" use:enhance style="display: inline;">
+				<button type="submit" class="logout-btn">Logout</button>
+			</form>
+		{:else}
+			<a href="/login">Login</a>
+		{/if}
 	</nav>
 </div>
 
@@ -41,6 +50,22 @@
 		text-decoration: none;
 		color: inherit;
 		font-weight: bold;
+	}
+
+	.logout-btn {
+		margin-left: 20px;
+		background: none;
+		border: none;
+		color: inherit;
+		font-weight: bold;
+		font-size: inherit;
+		font-family: inherit;
+		cursor: pointer;
+		text-decoration: none;
+	}
+
+	.logout-btn:hover {
+		opacity: 0.7;
 	}
 
 	.main {

@@ -13,15 +13,14 @@ declare global {
 }
 
 export const handle: Handle = async ({ event, resolve }) => {
-    if (event.route.id?.startsWith('/admin')) {
-        const token = event.cookies.get('session');
-        if (token) {
-            const isValid = await verifyCookie(token, "admin", 'secret');
-            if (isValid) {
-                event.locals.user = { name: 'admin' };
-            } 
+    const token = event.cookies.get('session');
+
+    if (token) {
+        const isValid = await verifyCookie("admin", token, 'secret');
+        if (isValid) {
+            event.locals.user = { name: 'admin' };
         } 
-    }
-    
+
+    } 
     return await resolve(event);
 };
