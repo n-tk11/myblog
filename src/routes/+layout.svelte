@@ -1,5 +1,6 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg';
+	import Sidebar from '$lib/Sidebar.svelte';
 
 	let { children } = $props();
 </script>
@@ -14,11 +15,18 @@
 	<nav>
 		<a href="/">Home</a>
 		<a href="/about">About</a>
-		<a href="/posts">Posts</a>
+		<a href="/admin">Admin</a>
 	</nav>
 </div>
 
-{@render children?.()}
+<div class="main">
+	<div class="contents">
+		{@render children?.()}
+	</div>
+    <div class="sidebar">
+        <Sidebar categories={['Tech', 'Life', 'Travel']} />
+    </div>
+</div>
 
 <style>
 
@@ -34,5 +42,21 @@
 		color: inherit;
 		font-weight: bold;
 	}
+
+	.main {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        gap: 20px;
+    }
+
+	.contents {
+        flex: 3;
+        margin-right: 20px;
+    }
+
+    .sidebar {
+        flex: 1;
+    }
 
 </style>
