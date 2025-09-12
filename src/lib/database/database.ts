@@ -12,8 +12,8 @@ export interface BlogDatabase {
     getAllBlogs(): Promise<BlogPost[]>;
     getBlogByid(id: number): Promise<BlogPost | null>;
     addBlogPost(post: BlogPost): Promise<void>;
-    // deleteBlogPost(id: number): Promise<void>;
-    // updateBlogPost(id: number, updatedPost: Partial<BlogPost>): Promise<void>;
+    deleteBlogPost(id: number): Promise<void>;
+    updateBlogPost(id: number, updatedPost: Partial<BlogPost>): Promise<void>;
 }
 
 class InmemoryBlogDatabase implements BlogDatabase {
@@ -33,6 +33,16 @@ class InmemoryBlogDatabase implements BlogDatabase {
     async addBlogPost(post: BlogPost): Promise<void> {
         this.blogs.push(post);
     }
+    async deleteBlogPost(id: number): Promise<void> {
+        this.blogs = this.blogs.filter(blog => blog.id !== id);
+    }
+
+    async updateBlogPost(id: number, updatedPost: Partial<BlogPost>): Promise<void> {
+        const index = this.blogs.findIndex(blog => blog.id === id);
+        if (index !== -1) {
+            this.blogs[index] = { ...this.blogs[index], ...updatedPost };
+        }
+    }
 }
 
 class SQLiteBlogDatabase implements BlogDatabase {
@@ -45,6 +55,14 @@ class SQLiteBlogDatabase implements BlogDatabase {
         return null;
     }
     async addBlogPost(post: BlogPost): Promise<void> {
+        // SQLite-specific implementation
+    }
+
+    async deleteBlogPost(id: number): Promise<void> {
+        // SQLite-specific implementation
+    }
+
+    async updateBlogPost(id: number, updatedPost: Partial<BlogPost>): Promise<void> {
         // SQLite-specific implementation
     }
 }

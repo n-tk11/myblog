@@ -1,11 +1,11 @@
 import { redirect } from '@sveltejs/kit';
 
 export const actions = {
-    default: async ({ cookies }) => {
-        // Delete the session cookie
+    default: async ({ cookies, locals }) => {
+        locals.user = undefined;
+        
         cookies.delete('session', { path: '/' });
         
-        // Redirect to login page
         throw redirect(303, '/login');
     }
 };

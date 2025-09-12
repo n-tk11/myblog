@@ -9,9 +9,9 @@
 </script>
 
 {#each data.blogs as blog}
-    <Summary title={blog.title} date={blog.date} summary={blog.summary} id={blog.id} />
+    <Summary title={blog.title} date={blog.date} summary={blog.summary} id={blog.id} isAdmin={data.user?.name === 'admin'} />
 {/each}
-<a href="/admin/add"><button>Add Blog</button></a>
+<a href="/blogs/add"><button>Add Blog</button></a>
 
 
 <style>

@@ -1,24 +1,34 @@
 
 
 <script lang="ts">
-    let { title, date, summary, id } = $props();
+    let { title, date, summary, id, isAdmin } = $props();
 </script>
 
-<div>
+<div class="summary">
     <h2>{title}</h2>
     <p>{date}</p>
     <p>{summary}</p>
     <a href="/blogs/{id}">Read more</a>
+    {#if isAdmin}
+    <div class="admin-actions" style="margin-top: 10px;">
+        <form method="POST" action="?/delete" >
+            <a class="btn btn-secondary" href="/blogs/{id}/edit">Edit</a>
+            <input type="hidden" name=blog_id value={id} />
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+    {/if}
 </div>
 
 <style>
-    div {
+    .summary {
         background-color: white;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         margin-bottom: 20px;
     }
+
 
     h2 {
         margin-top: 0;
