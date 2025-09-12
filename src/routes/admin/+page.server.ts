@@ -9,7 +9,7 @@ export async function load(event) {
     if (event.locals.user?.name !== 'admin') {
         throw error(403, 'You are not authorized to access this page');
     }
-    const blogs = await db.getAllBlogs();
+    const blogs = await db.getAllBlogs([]);
     return { blogs };
 }
 

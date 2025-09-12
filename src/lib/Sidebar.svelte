@@ -1,18 +1,35 @@
 <script lang="ts">
     let { categories } = $props();
+    import { goto } from '$app/navigation';
+
+    let tags: string[] = $state([]);
+    
+    $effect(() => {
+        const query = tags.map(tag => `${encodeURIComponent(tag)}`).join(',');
+        const url = query ? `/blogs?tag=${query}` : '/blogs';
+        // Use goto for client-side navigation
+        goto(url);
+    });
 </script>
 
-<div>
-    <h2>Categories</h2>
-    <ul>
+<div class="sidebar">
+    <h2>Tags</h2>
+    <div class="tags">
         {#each categories as category}
-            <li><a href="/blogs?category={category}">{category}</a></li>
+        <label data-sveltekit-reload>
+            <input type="checkbox" 
+                name="tag"
+                value={category}
+                bind:group={tags}
+            />
+            {category}
+        </label>
         {/each}
-    </ul>
+    </div>
 </div>
 
 <style>
-    div {
+    .sidebar {
         background-color: white;
         padding: 20px;
         border-radius: 8px;
@@ -20,6 +37,12 @@
         width: 100%;
     }
 
+
+    .tags {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
     h2 {
         margin-top: 0;
     }

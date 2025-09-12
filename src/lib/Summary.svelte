@@ -1,11 +1,14 @@
 
 
 <script lang="ts">
-    let { title, date, summary, id, isAdmin } = $props();
+    let { title, date, summary, id, isAdmin , tags} = $props();
 </script>
 
 <div class="summary">
-    <h2>{title}</h2>
+    <h2>{title}</h2> 
+    {#if tags && tags.length > 0}
+        <p>Tags: {tags.join(', ')}</p>
+    {/if}
     <p>{date}</p>
     <p>{summary}</p>
     <a href="/blogs/{id}">Read more</a>

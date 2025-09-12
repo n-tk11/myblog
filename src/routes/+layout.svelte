@@ -2,8 +2,9 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import Sidebar from '$lib/Sidebar.svelte';
 	import { enhance } from '$app/forms';
-
+	
 	let { children, data } = $props();
+	
 	
 </script>
 
@@ -15,7 +16,7 @@
 	<h1>Tul's Blog</h1>
 
 	<nav>
-		<a href="/">Home</a>
+		<a href="/blogs">Home</a>
 		<a href="/about">About</a>
 		{#if data.user?.name === "admin"}
 			<a href="/admin">Admin</a>
@@ -33,7 +34,7 @@
 		{@render children?.()}
 	</div>
     <div class="sidebar">
-        <Sidebar categories={['Tech', 'Life', 'Travel']} />
+        <Sidebar categories={data.tags} />
     </div>
 </div>
 

@@ -12,6 +12,7 @@
 <form method="POST">
 	<input type="hidden" name="id" value="{data.blog.id}" />
     <input type="text" name="title" placeholder="Title" value="{data.blog.title}" />
+	<input type="text" name="tags" placeholder="Tags (comma separated)" value="{data.blog.tags.join(', ')}" />
     <textarea name="summary" placeholder="Summary" required>{data.blog.summary}</textarea>
     <h1>Markdown Editor</h1>
     <textarea bind:value={markdown} placeholder="Enter markdown here" name="content"></textarea>
