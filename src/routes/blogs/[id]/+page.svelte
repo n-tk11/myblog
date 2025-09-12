@@ -10,7 +10,7 @@
 <p>{data.blog.date}</p>
 
 <div class="content">
-    {@html marked(data.blog.content)} 
+    {@html marked(data.blog.content || '')} 
 </div>
 
 

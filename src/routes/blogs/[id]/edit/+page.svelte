@@ -15,7 +15,7 @@
     <textarea name="summary" placeholder="Summary" required>{data.blog.summary}</textarea>
     <h1>Markdown Editor</h1>
     <textarea bind:value={markdown} placeholder="Enter markdown here" name="content"></textarea>
-    <div class="preview">{@html marked(markdown)}</div>
+    <div class="preview">{@html marked(markdown || '')}</div>
     <button type="submit">Save Blog Post</button>
 </form>
 <!-- Make it look (slightly) nicer ;) -->
