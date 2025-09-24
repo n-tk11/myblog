@@ -2,6 +2,7 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import Sidebar from '$lib/Sidebar.svelte';
 	import { enhance } from '$app/forms';
+	import { page } from '$app/state';
 	
 	let { children, data } = $props();
 	
@@ -34,7 +35,9 @@
 		{@render children?.()}
 	</div>
     <div class="sidebar">
+		{#if page.url.pathname == '/blogs'}
         <Sidebar categories={data.tags} />
+		{/if}
     </div>
 </div>
 

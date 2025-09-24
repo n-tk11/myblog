@@ -26,6 +26,7 @@
 		"globals": "^16.0.0",
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
+		"sass-embedded": "^1.92.1",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"typescript": "^5.0.0",
@@ -33,6 +34,13 @@
 		"vite": "^7.0.4"
 	},
 	"dependencies": {
+		"@tiptap/core": "^3.4.2",
+		"@tiptap/extension-bubble-menu": "^3.4.2",
+		"@tiptap/pm": "^3.4.2",
+		"@tiptap/starter-kit": "^3.4.2",
+		"@toast-ui/editor": "^3.2.2",
+		"ckeditor5": "^46.1.0",
+		"ckeditor5-premium-features": "^46.1.0",
 		"marked": "^16.2.1",
 		"mysql2": "^3.14.5"
 	}

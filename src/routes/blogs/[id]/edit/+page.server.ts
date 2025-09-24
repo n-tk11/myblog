@@ -1,6 +1,6 @@
 import { createBlogDatabase } from "$lib/database/database";
 import { redirect,error } from "@sveltejs/kit";
-
+import { writeFile, existsSync } from "fs";
 
 const db = createBlogDatabase('mysql');
 
@@ -17,7 +17,7 @@ export async function load({ locals, params }: { locals: any, params: { id: stri
 
 
 export const actions = {
-    default: async ({ request }) => {
+    save: async ({ request }) => {
         const formData = await request.formData();
         const newPost = {
             title: formData.get('title') as string,
@@ -27,5 +27,27 @@ export const actions = {
         };
         await db.updateBlogPost(formData.get('id') as unknown as number, newPost);
         return redirect(303, '/');
+    },
+
+    upload: async ({ request }) => {
+        const formData = await request.formData();
+        const file = formData?.get('image') as File;
+        if (file && file.size > 0) {
+            const arrayBuffer = await file.arrayBuffer();
+            const buffer = Buffer.from(arrayBuffer);
+            let filename = file.name; 
+            if (existsSync(`static/images/blogs/${filename}`)) {
+                filename = file.name + '_' + Math.random().toString(36).substring(2, 7);
+            }
+            writeFile(`static/images/blogs/${filename}`, buffer, (err) => {
+                if (err) {
+                    return { error: 'File upload failed' };
+                }
+            });
+            return { success: true, filename: filename };
+        } else {
+            return { error: 'No file uploaded' };
+        }
+        
     }
 };
